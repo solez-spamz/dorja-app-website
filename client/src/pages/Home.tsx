@@ -2,7 +2,7 @@
  * Quiet Momentum: a trust-first editorial experience with warm paper surfaces,
  * ink-blue information hierarchy, and authentic Dorja product screens as evidence.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -64,9 +64,45 @@ const journey = [
   ["04", "Handover", "Keep each promise and document clear from the listing to the keys."],
 ];
 
+const detailChecks = [
+  ["Identity", "NID-verified seller profiles and screening before a listing goes live.", BadgeCheck],
+  ["Records", "Khatian, Mutation, RAJUK plans, and tax documents kept in context.", FileCheck2],
+  ["Safety", "SafeView visits, protected addresses, and emergency-contact support.", ShieldCheck],
+  ["Conversation", "Secure in-app messaging without exposing personal phone numbers.", MessageSquareText],
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
+  useEffect(() => {
+    const revealTargets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    if (!("IntersectionObserver" in window)) {
+      setVisibleSections(new Set(Array.from(revealTargets).map((target) => target.dataset.reveal ?? "")));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = (entry.target as HTMLElement).dataset.reveal;
+          if (!id) return;
+          setVisibleSections((current) => {
+            if (current.has(id)) return current;
+            return new Set(current).add(id);
+          });
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    revealTargets.forEach((target) => observer.observe(target));
+    return () => observer.disconnect();
+  }, []);
+
+  const revealClass = (id: string) => `reveal-on-scroll ${visibleSections.has(id) ? "is-visible" : ""}`;
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -154,7 +190,7 @@ export default function Home() {
           <p><FileCheck2 size={18} /> Traceable handover records</p>
         </section>
 
-        <section className="problem-section section-pad" id="why-dorja" aria-labelledby="problem-heading">
+        <section className={`problem-section section-pad ${revealClass("problem")}`} data-reveal="problem" id="why-dorja" aria-labelledby="problem-heading">
           <div className="section-rail"><span>01</span><span>THE TRUST GAP</span></div>
           <div className="problem-intro">
             <p className="section-kicker">Property should not begin with uncertainty</p>
@@ -168,7 +204,24 @@ export default function Home() {
           <div className="door-mark" aria-hidden="true"><span /><span /><span /></div>
         </section>
 
-        <section className="features-section section-pad" id="features" aria-labelledby="features-heading">
+        <section className={revealClass("detail-band")} data-reveal="detail-band" aria-labelledby="detail-heading">
+          <div className="detail-band-intro">
+            <p className="section-kicker">What gets checked</p>
+            <h2 id="detail-heading">More than a badge.<br /><em>A trail of proof.</em></h2>
+            <p>Trust becomes useful when it is visible at the moment a decision is made. Dorja keeps the signals, documents, and conversations that matter close to the property journey.</p>
+          </div>
+          <div className="detail-check-grid">
+            {detailChecks.map(([title, description, Icon]) => (
+              <article className="detail-check" key={title as string}>
+                <div className="detail-check-icon"><Icon size={19} /></div>
+                <div><h3>{title as string}</h3><p>{description as string}</p></div>
+                <Check className="detail-check-mark" size={17} />
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={`features-section section-pad ${revealClass("features")}`} data-reveal="features" id="features" aria-labelledby="features-heading">
           <div className="feature-heading-wrap">
             <div className="section-rail"><span>02</span><span>THE SYSTEM</span></div>
             <div>
@@ -191,7 +244,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="experience-section section-pad" id="experience" aria-labelledby="experience-heading">
+        <section className={`experience-section section-pad ${revealClass("experience")}`} data-reveal="experience" id="experience" aria-labelledby="experience-heading">
           <div className="section-rail"><span>03</span><span>INSIDE THE APP</span></div>
           <div className="experience-heading">
             <p className="section-kicker">A more intentional property workflow</p>
@@ -204,11 +257,15 @@ export default function Home() {
             <div className="app-shot shot-records"><img src={screens.records} alt="Dorja app legal document verification screen" /></div>
             <div className="stage-label label-one"><span>LISTING</span><i /></div>
             <div className="stage-label label-two"><i /><span>VERIFICATION</span></div>
-            <p className="stage-copy">From protected addresses to legal documents, the experience makes the information behind a property easier to understand and act on.</p>
+            <div className="stage-copy-panel">
+              <div className="stage-copy-eyebrow"><MessageSquareText size={16} /> BUILT FOR THE IMPORTANT DETAILS</div>
+              <h3>Information that helps you move with clarity.</h3>
+              <p>From protected addresses to legal documents, the experience makes the information behind a property easier to understand and act on.</p>
+            </div>
           </div>
         </section>
 
-        <section className="journey-section section-pad" id="journey" aria-labelledby="journey-heading">
+        <section className={`journey-section section-pad ${revealClass("journey")}`} data-reveal="journey" id="journey" aria-labelledby="journey-heading">
           <div className="journey-lead">
             <div className="section-rail"><span>04</span><span>THE JOURNEY</span></div>
             <p className="section-kicker">From search to keys</p>
@@ -226,7 +283,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="closing-section" aria-labelledby="closing-heading">
+        <section className={`closing-section ${revealClass("closing")}`} data-reveal="closing" aria-labelledby="closing-heading">
           <div className="closing-door" aria-hidden="true"><div /><div /><span /></div>
           <div className="closing-copy">
             <img src={orbitMark} alt="Dorja doorway symbol" />
