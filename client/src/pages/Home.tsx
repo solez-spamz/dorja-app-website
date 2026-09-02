@@ -20,6 +20,7 @@ import {
 
 const logo = "/manus-storage/dorja-logo_8a9dbfb8.png";
 const orbitMark = "/manus-storage/dorja-orbit-mark_3d024bc2.png";
+const alphaBetaUrl = "https://github.com/Solez-ai/dorja/releases/download/latest/app-release.apk";
 const screens = {
   welcome: "/manus-storage/2_2d7998e7.jpg",
   listing: "/manus-storage/3_33393013.png",
@@ -121,8 +122,8 @@ export default function Home() {
           <a href="#journey">How it works</a>
         </nav>
 
-        <a className="header-cta" href="#experience">
-          Explore the app <ArrowUpRightIcon />
+        <a className="header-cta" href={alphaBetaUrl} target="_blank" rel="noopener noreferrer">
+          Try the alpha / beta <ArrowUpRightIcon />
         </a>
 
         <button
@@ -140,7 +141,7 @@ export default function Home() {
             <a href="#features" onClick={closeMenu}>Trust system</a>
             <a href="#experience" onClick={closeMenu}>App experience</a>
             <a href="#journey" onClick={closeMenu}>How it works</a>
-            <a className="mobile-nav-cta" href="#experience" onClick={closeMenu}>Explore Dorja <ArrowRight size={17} /></a>
+            <a className="mobile-nav-cta" href={alphaBetaUrl} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Try the alpha / beta <ArrowRight size={17} /></a>
           </nav>
         )}
       </header>
@@ -155,19 +156,21 @@ export default function Home() {
           <div className="hero-noise" aria-hidden="true" />
           <div className="hero-copy reveal-one">
             <div className="eyebrow"><span className="eyebrow-dot" /> Bangladesh’s property trust platform</div>
+            <span className="hero-vernacular">বিশ্বাসের দরজা <i>TRUST, MADE LOCAL</i></span>
             <h1 id="hero-heading">Trust is built<br />into every <em>door.</em></h1>
             <p>
               Dorja brings verified records, safer visits, immersive property views, and a clear digital handover into one considered Android experience.
             </p>
             <div className="hero-actions">
               <a className="button-primary" href="#why-dorja">See what Dorja solves <ArrowDownRight size={19} /></a>
-              <a className="text-action" href="#experience">View app screens <ArrowRight size={17} /></a>
+              <a className="text-action" href={alphaBetaUrl} target="_blank" rel="noopener noreferrer">Try the alpha / beta <ArrowRight size={17} /></a>
             </div>
           </div>
 
           <div className="hero-product reveal-two">
             <div className="product-tag"><BadgeCheck size={14} /> Built for Bangladesh</div>
             <div className="hero-phone-frame">
+              <span className="hero-frame-note" aria-hidden="true">DORJA / PROOF 01</span>
               <span className="corner corner-tl" />
               <span className="corner corner-tr" />
               <span className="corner corner-bl" />
@@ -204,7 +207,7 @@ export default function Home() {
           <div className="door-mark" aria-hidden="true"><span /><span /><span /></div>
         </section>
 
-        <section className={revealClass("detail-band")} data-reveal="detail-band" aria-labelledby="detail-heading">
+        <section className={`detail-band detail-band--proof ${revealClass("detail-band")}`} data-reveal="detail-band" aria-labelledby="detail-heading">
           <div className="detail-band-intro">
             <p className="section-kicker">What gets checked</p>
             <h2 id="detail-heading">More than a badge.<br /><em>A trail of proof.</em></h2>
@@ -289,7 +292,10 @@ export default function Home() {
             <img src={orbitMark} alt="Dorja doorway symbol" />
             <p className="section-kicker">Property trust, made more human</p>
             <h2 id="closing-heading">A door should open<br />with <em>confidence.</em></h2>
-            <a href="#top" className="button-light">Back to top <ArrowRight size={19} /></a>
+            <div className="closing-actions">
+              <a href={alphaBetaUrl} className="button-light" target="_blank" rel="noopener noreferrer">Try the alpha / beta <ArrowRight size={19} /></a>
+              <a href="#top" className="closing-text-action">Back to top <ArrowRight size={17} /></a>
+            </div>
           </div>
         </section>
       </main>

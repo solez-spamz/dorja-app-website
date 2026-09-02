@@ -1,3 +1,5 @@
+/** Quiet Momentum app shell: a brief Dorja-logo launch moment, warm paper field, and accessible reduced-motion behavior. */
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -24,8 +26,24 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 1050);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <ErrorBoundary>
+      {isLoading && (
+        <div className="app-loader" role="status" aria-live="polite" aria-label="Loading Dorja">
+          <div className="app-loader-mark">
+            <span className="app-loader-ring" />
+            <img src="/manus-storage/dorja-logo_8a9dbfb8.png" alt="" />
+          </div>
+          <p>Opening Dorja</p>
+        </div>
+      )}
       <ThemeProvider
         defaultTheme="light"
         // switchable

@@ -65,3 +65,15 @@ The supplied Dorja logo remains the primary identifier and appears prominently i
 
 ### Signature Brand Color
 **Dorja Ember** — the primary warm accent sampled from the supplied logo after asset review — will be used decisively for calls-to-action, key navigation states, and minor graphic details.
+
+## Style Decisions
+
+- **Dorja Ember leads action:** Primary CTAs, section numbers, proof marks, and small evidence details use Dorja Ember as the decisive action accent. Teal and ink remain supporting product colors.
+- **Vernacular presence is visual:** Bangla-facing display text appears in the hero as “বিশ্বাসের দরজা” alongside a compact English marginal label, keeping the brand rooted in its intended market rather than only naming Bangladesh in copy.
+- **The Dorja frame repeats:** The nested doorway frame now surrounds the hero product evidence, reappears around the proof surface, and returns in the launch CTA moment so the frame becomes a recognizable brand device.
+- **Alpha/beta is a first-class action:** The supplied Android release URL is used for the header, hero, mobile navigation, and closing CTA with safe external-link attributes.
+- **Motion remains composed:** Hero movement uses layered transform/opacity reveals and restrained floating evidence; the logo loader is brief, status-labeled, and disabled for reduced-motion preferences.
+
+**End of accepted review amendments.**
+
+**No fabricated testimonials, reviews, ratings, or customer metrics.**
