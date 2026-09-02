@@ -18,13 +18,13 @@ import {
   X,
 } from "lucide-react";
 
-const logo = "/manus-storage/dorja-logo_8a9dbfb8.png";
-const orbitMark = "/manus-storage/dorja-orbit-mark_3d024bc2.png";
+const logo = "/dorja-assets/dorja-logo.png";
+const orbitMark = "/dorja-assets/dorja-orbit-mark.png";
 const alphaBetaUrl = "https://github.com/Solez-ai/dorja/releases/download/latest/app-release.apk";
 const screens = {
-  welcome: "/manus-storage/2_2d7998e7.jpg",
-  listing: "/manus-storage/3_33393013.png",
-  records: "/manus-storage/5_88df73d1.jpg",
+  welcome: "/dorja-assets/welcome.jpg",
+  listing: "/dorja-assets/listing.png",
+  records: "/dorja-assets/records.jpg",
 };
 
 const features = [
@@ -150,7 +150,7 @@ export default function Home() {
         <section className="hero-section" aria-labelledby="hero-heading">
           <img
             className="hero-art"
-            src="/manus-storage/dorja-hero-editorial_57886383.jpg"
+            src="/dorja-assets/hero-editorial.jpg"
             alt="Abstract layered doorway artwork in Dorja brand colors"
           />
           <div className="hero-noise" aria-hidden="true" />
@@ -255,7 +255,7 @@ export default function Home() {
           </div>
 
           <div className="experience-stage">
-            <img className="feature-art" src="/manus-storage/dorja-feature-collage_641a547d.jpg" alt="Abstract doorway collage in Dorja brand colors" />
+            <img className="feature-art" src="/dorja-assets/feature-collage.jpg" alt="Abstract doorway collage in Dorja brand colors" />
             <div className="app-shot shot-listing"><img src={screens.listing} alt="Dorja app create new listing screen" /></div>
             <div className="app-shot shot-records"><img src={screens.records} alt="Dorja app legal document verification screen" /></div>
             <div className="stage-label label-one"><span>LISTING</span><i /></div>
@@ -273,7 +273,7 @@ export default function Home() {
             <div className="section-rail"><span>04</span><span>THE JOURNEY</span></div>
             <p className="section-kicker">From search to keys</p>
             <h2 id="journey-heading">One journey.<br /><em>Fewer blind spots.</em></h2>
-            <div className="journey-collage"><img src="/manus-storage/dorja-detail-surface_67e5a921.jpg" alt="Textured abstract Dorja brand surface" /></div>
+            <div className="journey-collage"><img src="/dorja-assets/detail-surface.jpg" alt="Textured abstract Dorja brand surface" /></div>
           </div>
           <div className="journey-list">
             {journey.map(([number, title, description]) => (

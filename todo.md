@@ -50,3 +50,17 @@
 **Next action:** Deliver the saved project version and publish only through the Management UI if desired.
 
 **End of checklist.**
+
+## Vercel image-loading repair
+
+- [x] Inspect all Dorja image references and identify paths that are only available inside the Manus sandbox.
+- [x] Inspect GitHub/Vercel build configuration and confirm whether the referenced assets are committed or externally hosted.
+- [x] Replace broken image references with deployment-safe committed assets or stable public asset URLs.
+- [x] Verify every image request in the production build and confirm no broken-image console/network errors.
+- [ ] Save a checkpoint containing the Vercel image fix.
+
+**User report:** The GitHub-connected Vercel site renders, but images do not load.
+
+**Scope:** Preserve the existing layout, logo, screenshots, typography, and motion while fixing only asset delivery.
+
+**Current phase:** Asset paths repaired and validated; media optimized; checkpoint retry pending.

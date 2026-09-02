@@ -39,7 +39,7 @@ function App() {
         <div className="app-loader" role="status" aria-live="polite" aria-label="Loading Dorja">
           <div className="app-loader-mark">
             <span className="app-loader-ring" />
-            <img src="/manus-storage/dorja-logo_8a9dbfb8.png" alt="" />
+            <img src="/dorja-assets/dorja-logo.png" alt="" />
           </div>
           <p>Opening Dorja</p>
         </div>
