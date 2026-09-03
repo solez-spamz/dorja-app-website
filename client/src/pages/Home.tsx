@@ -65,6 +65,8 @@ const journey = [
   ["04", "Handover", "Keep each promise and document clear from the listing to the keys."],
 ];
 
+type LightboxItem = { src: string; alt: string; label: string };
+
 const detailChecks = [
   ["Identity", "NID-verified seller profiles and screening before a listing goes live.", BadgeCheck],
   ["Records", "Khatian, Mutation, RAJUK plans, and tax documents kept in context.", FileCheck2],
@@ -75,6 +77,7 @@ const detailChecks = [
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [lightbox, setLightbox] = useState<LightboxItem | null>(null);
 
   useEffect(() => {
     const revealTargets = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -103,7 +106,22 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!lightbox) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLightbox(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lightbox]);
+
   const revealClass = (id: string) => `reveal-on-scroll ${visibleSections.has(id) ? "is-visible" : ""}`;
+  const openLightbox = (item: LightboxItem) => setLightbox(item);
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -153,6 +171,12 @@ export default function Home() {
             src="/dorja-assets/hero-editorial.jpg"
             alt="Abstract layered doorway artwork in Dorja brand colors"
           />
+          <button
+            className="image-trigger hero-art-trigger"
+            type="button"
+            onClick={() => openLightbox({ src: "/dorja-assets/hero-editorial.jpg", alt: "Abstract layered doorway artwork in Dorja brand colors", label: "Hero artwork" })}
+            aria-label="View hero artwork full screen"
+          />
           <div className="hero-noise" aria-hidden="true" />
           <div className="hero-copy reveal-one">
             <div className="eyebrow"><span className="eyebrow-dot" /> Bangladesh’s property trust platform</div>
@@ -175,7 +199,14 @@ export default function Home() {
               <span className="corner corner-tr" />
               <span className="corner corner-bl" />
               <span className="corner corner-br" />
-              <img src={screens.welcome} alt="Dorja mobile app sign-in screen" />
+              <button
+                className="image-trigger screenshot-trigger"
+                type="button"
+                onClick={() => openLightbox({ src: screens.welcome, alt: "Dorja mobile app sign-in screen", label: "Sign-in screen" })}
+                aria-label="View sign-in screen full screen"
+              >
+                <img src={screens.welcome} alt="Dorja mobile app sign-in screen" />
+              </button>
             </div>
             <div className="hero-caption"><span>01 / TRUST, MADE VISIBLE</span><span>ANDROID APP</span></div>
           </div>
@@ -255,9 +286,24 @@ export default function Home() {
           </div>
 
           <div className="experience-stage">
-            <img className="feature-art" src="/dorja-assets/feature-collage.jpg" alt="Abstract doorway collage in Dorja brand colors" />
-            <div className="app-shot shot-listing"><img src={screens.listing} alt="Dorja app create new listing screen" /></div>
-            <div className="app-shot shot-records"><img src={screens.records} alt="Dorja app legal document verification screen" /></div>
+            <button
+              className="image-trigger feature-art-trigger"
+              type="button"
+              onClick={() => openLightbox({ src: "/dorja-assets/feature-collage.jpg", alt: "Abstract doorway collage in Dorja brand colors", label: "Product collage" })}
+              aria-label="View product collage full screen"
+            >
+              <img className="feature-art" src="/dorja-assets/feature-collage.jpg" alt="Abstract doorway collage in Dorja brand colors" />
+            </button>
+            <div className="app-shot shot-listing">
+              <button className="image-trigger screenshot-trigger" type="button" onClick={() => openLightbox({ src: screens.listing, alt: "Dorja app create new listing screen", label: "Create listing screen" })} aria-label="View create listing screen full screen">
+                <img src={screens.listing} alt="Dorja app create new listing screen" />
+              </button>
+            </div>
+            <div className="app-shot shot-records">
+              <button className="image-trigger screenshot-trigger" type="button" onClick={() => openLightbox({ src: screens.records, alt: "Dorja app legal document verification screen", label: "Records screen" })} aria-label="View records screen full screen">
+                <img src={screens.records} alt="Dorja app legal document verification screen" />
+              </button>
+            </div>
             <div className="stage-label label-one"><span>LISTING</span><i /></div>
             <div className="stage-label label-two"><i /><span>VERIFICATION</span></div>
             <div className="stage-copy-panel">
@@ -273,7 +319,14 @@ export default function Home() {
             <div className="section-rail"><span>04</span><span>THE JOURNEY</span></div>
             <p className="section-kicker">From search to keys</p>
             <h2 id="journey-heading">One journey.<br /><em>Fewer blind spots.</em></h2>
-            <div className="journey-collage"><img src="/dorja-assets/detail-surface.jpg" alt="Textured abstract Dorja brand surface" /></div>
+            <button
+              className="image-trigger journey-collage journey-collage-trigger"
+              type="button"
+              onClick={() => openLightbox({ src: "/dorja-assets/detail-surface.jpg", alt: "Textured abstract Dorja brand surface", label: "Dorja surface artwork" })}
+              aria-label="View journey artwork full screen"
+            >
+              <img src="/dorja-assets/detail-surface.jpg" alt="Textured abstract Dorja brand surface" />
+            </button>
           </div>
           <div className="journey-list">
             {journey.map(([number, title, description]) => (
@@ -299,6 +352,19 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {lightbox && (
+        <div className="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-label" onMouseDown={(event) => { if (event.target === event.currentTarget) setLightbox(null); }}>
+          <div className="lightbox-panel">
+            <div className="lightbox-bar">
+              <span id="lightbox-label">{lightbox.label}</span>
+              <button className="lightbox-close" type="button" autoFocus onClick={() => setLightbox(null)} aria-label="Close full-screen image"><X size={21} /></button>
+            </div>
+            <img src={lightbox.src} alt={lightbox.alt} />
+            <p>Press Escape or select close to return to the journey.</p>
+          </div>
+        </div>
+      )}
 
       <footer className="site-footer">
         <div className="footer-brand"><img src={logo} alt="Dorja logo" /><span>DORJA</span></div>

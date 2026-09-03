@@ -64,3 +64,22 @@
 **Scope:** Preserve the existing layout, logo, screenshots, typography, and motion while fixing only asset delivery.
 
 **Current phase:** Asset paths repaired and validated; media optimized; checkpoint retry pending.
+
+## Lightbox, sticky navigation, and cursor iteration
+
+- [ ] Make the navbar sticky with reliable contrast over the hero and while scrolling.
+- [ ] Add an accessible full-screen lightbox for every screenshot and artwork surface.
+- [ ] Support close button, Escape key, backdrop click, focus-visible styling, and descriptive image labels.
+- [ ] Integrate the supplied macOS cursor treatment for interactive pointer contexts without replacing text-selection cursors.
+- [ ] Respect reduced motion and coarse-pointer/mobile behavior for the cursor layer.
+- [ ] Validate the new interactions at desktop and mobile sizes, then save a checkpoint.
+
+**Current phase:** Requirements recorded; inspect interaction surfaces and cursor option next.
+
+## Interaction follow-up validation
+
+- [x] Recheck the lightbox click targets, Escape/backdrop close behavior, sticky navbar layering, and cursor treatment after the latest implementation pass.
+- [x] Confirm the cursor treatment follows the supplied macOS cursor API intent without requiring Remotion rendering in the landing page.
+- [ ] Save the interaction-upgrade checkpoint after final validation.
+
+**Current phase:** Interaction behavior validated; checkpoint save pending.

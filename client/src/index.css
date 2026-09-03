@@ -243,3 +243,52 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--ember); outline
 }
 
 /* End Quiet Momentum brand pass. */
+
+/* Quiet Momentum interaction layer: sticky ink navigation, framed lightbox viewing, and a restrained macOS-style cursor pack for pointer contexts. */
+.site-header { position: sticky; top: 0; }
+.image-trigger { appearance: none; border: 0; margin: 0; padding: 0; background: transparent; color: inherit; font: inherit; text-align: inherit; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l13 9-6 1 3 7-2 1-3-7-5 4z' fill='white' stroke='%23082b4f' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, pointer; }
+.image-trigger:focus-visible { outline: 2px solid var(--ember); outline-offset: 5px; }
+.hero-art-trigger { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; opacity: 0; }
+.hero-art-trigger:hover { opacity: .04; background: var(--ember); }
+.screenshot-trigger { display: block; width: 100%; height: 100%; }
+.screenshot-trigger img { transition: transform .28s cubic-bezier(.23,1,.32,1), filter .28s ease; }
+.screenshot-trigger:hover img { transform: scale(1.018); filter: saturate(1.06); }
+.feature-art-trigger { position: absolute; inset: 0 0 0 50%; width: 50%; height: 100%; z-index: 1; }
+.feature-art-trigger .feature-art { pointer-events: none; }
+.feature-art-trigger:hover .feature-art { filter: saturate(1.08) contrast(1.02); }
+.journey-collage-trigger { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l13 9-6 1 3 7-2 1-3-7-5 4z' fill='white' stroke='%23082b4f' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, pointer; }
+.journey-collage-trigger img { transition: transform .32s cubic-bezier(.23,1,.32,1), filter .28s ease; }
+.journey-collage-trigger:hover img { transform: scale(1.035); filter: saturate(1.08); }
+.lightbox { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: clamp(18px, 4vw, 56px); background: rgba(4,26,50,.88); backdrop-filter: blur(14px); animation: lightbox-in .22s cubic-bezier(.23,1,.32,1) both; }
+.lightbox-panel { width: min(100%, 1120px); max-height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 14px; padding: 15px; background: var(--paper); box-shadow: 0 30px 90px rgba(0,0,0,.36); border: 1px solid rgba(255,255,255,.22); animation: lightbox-panel-in .26s cubic-bezier(.23,1,.32,1) both; }
+.lightbox-bar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 2px 2px 0; color: var(--ink); font: 800 10px/1 var(--font-display); letter-spacing: .13em; text-transform: uppercase; }
+.lightbox-close { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid rgba(8,43,79,.18); background: var(--paper-deep); color: var(--ink); cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l13 9-6 1 3 7-2 1-3-7-5 4z' fill='white' stroke='%23082b4f' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, pointer; transition: transform .16s cubic-bezier(.23,1,.32,1), background .18s ease; }
+.lightbox-close:hover { transform: rotate(4deg); background: #fff; }
+.lightbox-panel > img { width: 100%; height: min(76vh, 760px); object-fit: contain; background: #e9e6de; border: 1px solid rgba(8,43,79,.12); }
+.lightbox-panel > p { margin: 0; color: var(--muted-ink); font: 600 11px/1.4 var(--font-display); }
+@keyframes lightbox-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lightbox-panel-in { from { opacity: 0; transform: scale(.97) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@media (max-width: 700px) {
+  .lightbox { padding: 10px; }
+  .lightbox-panel { padding: 10px; gap: 10px; }
+  .lightbox-panel > img { height: min(76vh, 650px); }
+  .lightbox-bar { font-size: 8px; }
+  .lightbox-panel > p { font-size: 10px; }
+  .feature-art-trigger { inset: 0; width: 100%; opacity: .16; }
+  .hero-art-trigger { opacity: 0; }
+}
+@media (pointer: coarse) {
+  .image-trigger, .lightbox-close { cursor: pointer; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lightbox, .lightbox-panel, .screenshot-trigger img, .journey-collage-trigger img { animation: none !important; transition: none !important; }
+}
+
+/* End Quiet Momentum interaction layer. */
+
+/* Quiet Momentum cursor pack: the supplied MacOSCursor pointer intent, translated to CSS for the static site. */
+:root { --dorja-mac-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l13 9-6 1 3 7-2 1-3-7-5 4z' fill='white' stroke='%23082b4f' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 3, pointer; }
+.site-shell a, .site-shell button { cursor: var(--dorja-mac-pointer); }
+input, textarea, [contenteditable="true"] { cursor: text; }
+@media (pointer: coarse) { .site-shell a, .site-shell button { cursor: pointer; } }
+/* End cursor pack adaptation. */
